@@ -1,0 +1,32 @@
+
+{% block content %}
+<h2>Your Reservations</h2>
+
+{% if reservations %}
+    <table border="1">
+        <tr>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Guests</th>
+            <th>Actions</th>
+        </tr>
+        {% for reservation in reservations %}
+        <tr>
+            <td>{{ reservation.date }}</td>
+            <td>{{ reservation.time }}</td>
+            <td>{{ reservation.guests }}</td>
+            <td>
+                <form method="post" action="{% url 'cancel_reservation' reservation.id %}">
+                    {% csrf_token %}
+                    <button type="submit" onclick="return confirm('Are you sure you want to cancel this reservation?')">Cancel</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+{% else %}
+    <p>You have no reservations.</p>
+{% endif %}
+
+<a href="{% url 'make_reservation' %}">Make a New Reservation</a>
+{% endblock %}

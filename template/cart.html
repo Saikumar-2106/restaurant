@@ -1,0 +1,165 @@
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, max-age=0">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <title>My Restaurant</title>
+<style>
+    /* General Styles */
+    body {
+        font-family: 'Poppins', sans-serif;
+        background: #f5f7fa;
+    }
+    .cart-container {
+        max-width: 900px;
+        margin: 50px auto;
+        background: #ffffff;
+        padding: 25px;
+        border-radius: 12px;
+        box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.15);
+    }
+    h2 {
+        color: #2c3e50;
+        text-align: center;
+        font-weight: 600;
+        margin-bottom: 20px;
+    }
+
+    /* Table Styles */
+    .table {
+        background: #ffffff;
+        border-radius: 8px;
+        overflow: hidden;
+        width: 100%;
+    }
+    .table th {
+        background: #2c3e50;
+        color: #fff;
+        font-weight: 600;
+        padding: 12px;
+    }
+    .table td {
+        text-align: center;
+        vertical-align: middle;
+        padding: 15px;
+    }
+    
+    /* Image Styling */
+    .table img {
+        width: 80px;
+        height: 80px;
+        object-fit: cover;
+        border-radius: 8px;
+        transition: transform 0.3s ease-in-out;
+    }
+    .table img:hover {
+        transform: scale(1.1);
+    }
+
+    /* Availability Badge */
+    .availability {
+        font-weight: bold;
+        text-transform: uppercase;
+        font-size: 13px;
+        padding: 6px 12px;
+        border-radius: 15px;
+        display: inline-block;
+    }
+    .available {
+        color: #28a745;
+        background: rgba(40, 167, 69, 0.2);
+    }
+    .not-available {
+        color: #dc3545;
+        background: rgba(220, 53, 69, 0.2);
+    }
+    a {
+        text-decoration: none;
+    }
+
+    /* Button Styling */
+    .btn {
+        font-size: 14px;
+        padding: 7px 12px;
+        transition: all 0.3s ease-in-out;
+        border-radius: 8px;
+    }
+    .btn-danger {
+        background: #e74c3c;
+        border-color: #e74c3c;
+        color: white;
+    }
+    .btn-danger:hover {
+        background: #c0392b;
+    }
+    .btn-warning {
+        background: #f39c12;
+        border-color: #f39c12;
+        color: white;
+    }
+    .btn-warning:hover {
+        background: #e67e22;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .table img {
+            width: 60px;
+            height: 60px;
+        }
+        .table td {
+            font-size: 14px;
+            padding: 10px;
+        }
+    }
+</style>
+
+<div class="cart-container">
+    <h2>Your Cart</h2>
+    
+    {% if cart.items.all %}
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Image</th>
+                    <th>Item</th>
+                    <th>Description</th>
+                    <th>Price</th>
+                    <th>Availability</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in cart.items.all %}
+                <tr>
+                    <td><img src="{{ item.image_url }}" alt="{{ item.name }}"></td>
+                    <td><strong>{{ item.name }}</strong></td>
+                    <td>{{ item.description }}</td>
+                    <td><strong>&#8377;{{ item.price }}</strong></td>
+                    <td>
+                        {% if item.available %}
+                            <span class="availability available">In Stock</span>
+                        {% else %}
+                            <span class="availability not-available">Out of Stock</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a href="{% url 'remove_from_cart' item.id %}" class="btn btn-danger btn-sm">Remove</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        
+        <a href="{% url 'clear_cart' %}" class="btn btn-warning">Clear Cart</a>
+        <a href="{% url 'food_item_list' %}" class="btn btn-warning">Quit</a>
+    {% else %}
+        <p>Your cart is empty.</p>
+    {% endif %}
+</div>
+{% endblock %}

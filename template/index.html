@@ -1,0 +1,678 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Restaurant</title>
+
+  <!-- Fonts & Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+
+  <!-- AOS Animation -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet"/>
+
+  <style>
+    :root {
+      --main-color: #ff5722;
+      --accent-color: #e64a19;
+      --bg-light: #f3bc86;
+      --text-dark: #333;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--bg-light);
+      color: var(--text-dark);
+    }
+
+    header {
+      background: var(--main-color);
+      color: white;
+      padding: 20px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      top: 0;
+    }
+    .logo{
+      display: flex;
+      font-size: 20px;
+      font-weight: bold;
+      text-align: center;
+      gap: 10px;
+    }
+    .logo img{
+      border-radius: 50px;
+      height:70px;
+      width:70px;
+      text-align: center;
+    }
+    header a{
+      font-size: 20px;
+      font-weight: bold;
+    }
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 20px;
+    }
+
+    nav ul li a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    nav ul li a:hover {
+      color: #ffe1d6;
+    }
+
+    .menu-toggle {
+      display: none;
+      font-size: 26px;
+      cursor: pointer;
+    }
+
+    @media (max-width: 768px) {
+      .menu-toggle {
+        display: block;
+      }
+
+      nav ul {
+        display: none;
+        flex-direction: column;
+        background-color: var(--main-color);
+        position: absolute;
+        top: 60px;
+        right: 0;
+        width: 100%;
+        padding: 10px 0;
+      }
+
+      nav ul.active {
+        display: flex;
+      }
+
+      nav ul li {
+        text-align: center;
+        margin: 10px 0;
+      }
+    }
+    .hero {
+      position: relative;
+      width: 100%;
+      height: 500px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: white;
+    }
+
+    .hero .slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+      opacity: 0;
+      animation: fadeSlide 20s infinite;
+    } 
+
+    .hero .slide:nth-child(1) { animation-delay: 1s; }
+    .hero .slide:nth-child(2) { animation-delay: 4s; }
+    .hero .slide:nth-child(3) { animation-delay: 8s; }
+    .hero .slide:nth-child(4) { animation-delay: 12s; }
+    .hero .slide:nth-child(5) { animation-delay: 16s; }
+
+    @keyframes fadeSlide {
+      0% { opacity: 0; }
+      5% { opacity: 1; }
+      25% { opacity: 1; }
+      30% { opacity: 0; }
+      100% { opacity: 0; }
+      125% { opacity: 0; }
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;      
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+    }
+    .hero div {
+      z-index: 1;
+    }
+
+    .hero h1 {
+      font-size: 48px;
+      font-weight: bold;
+      color: rgb(252, 248, 248);
+    }
+
+    .hero p {
+      font-size: 20px;
+      margin: 10px 0;
+      color: rgb(251, 254, 251);
+    }
+
+    .btn {
+      padding: 10px 25px;
+      background: var(--main-color);
+      color: white;
+      border-radius: 5px;
+      text-decoration: none;
+      display: inline-block;
+      margin-top: 10px;
+    }
+
+    .btn:hover {
+      background: var(--accent-color);
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: auto;
+      padding: 20px 15px;
+    }
+
+    #mission {
+      padding: 20px 20px;
+      text-align: center;
+      background: linear-gradient(to right, #ffe3c2, #fff);
+      color: #333;
+      border-radius: 15px; /* Makes the corners curved */
+    }
+    #mission img{
+      border-radius:20px;
+      padding: 10px;
+      height:150px;
+      width:200px;
+    }
+
+    #mission h2 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      color: #d35400;
+      letter-spacing: 2px;
+    }
+
+    .section-img {
+      width: 90%;
+      max-width: 800px;
+      height: auto;
+      border-radius: 15px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+      margin-bottom: 30px;
+    }
+
+    #mission p {
+      font-size: 1.1rem;
+      
+      margin: 15px;
+      line-height: 30px;
+    }
+
+    #mission strong {
+      color: #c0392b;
+    }
+
+    .values-list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 40px;
+      gap: 20px;
+    }
+
+    .value-item {
+      background-color: #fff;
+      border: 1px solid #eee;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      padding: 10px;
+      max-width: 250px;
+      transition: transform 0.3s ease;
+    }
+
+    .value-item:hover {
+      transform: translateY(-5px);
+    }
+
+    .value-item h4 {
+      color: #e67e22;
+      margin-bottom: 10px;
+    }
+
+    .value-item p {
+      font-size: 0.95rem;
+      color: #555;
+    }
+
+    h2 {
+      font-size: 30px;
+      color: var(--accent-color);
+      margin-bottom: 15px;
+      position: relative;
+    }
+    .section-img {
+      width: 100%;
+      height: 400px;
+      object-fit: cover;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+
+    @media (max-width: 600px) {
+      #dishes li {
+        width: 100%;
+        max-width: 300px;
+      }
+    }
+    .features {
+      margin: 5%;
+    }
+    .features, .testimonials, .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 25px;
+    }
+
+    .feature-card i {
+      font-size: 28px;
+      color: var(--main-color);
+      margin-bottom: 10px;
+    }
+
+    #dishes {
+      margin: 20px 10px;
+      background: linear-gradient(135deg, #fff5eb, #ffe3c2);
+      padding: 20px 10px;
+      text-align: center;
+      color: #333;
+      border-radius: 10px;
+    }
+
+    #dishes h2 {
+      font-size: 2.5rem;
+      color: #d35400;
+      margin-bottom: 10px;
+      letter-spacing: 1px;
+    }
+    
+    #dishes ul {
+      list-style-type: none;
+      padding: 0;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      
+    }
+
+    #dishes li {
+      background-color: #fff;
+      padding: 20px 20px;
+      border-radius: 12px;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: #555;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    #dishes li:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+      background-color: #fffaf0;
+    }
+
+    .gallery-grid img {
+      width: 100%;
+      border-radius: 10px;
+      height: 200px;
+      object-fit: cover;
+    }
+
+
+    .feed {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      gap: 30px;
+      padding: 40px 20px;
+      background-color: #f9f9f9;
+    }
+
+    #feedback, #hours {
+      flex: 1 1 400px;
+      max-width: 600px;
+      background-color: #ffffff;
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    #feedback h2, #hours h2 {
+      font-size: 24px;
+      color: #333;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    iframe {
+      width: 100%;
+      height: 600px;
+      border: none;
+      border-radius: 10px;
+    }
+    #hours img{
+      height:600px;
+      width:550px;
+      padding: 20px 10px;
+      border-radius: 40px;
+    }
+    #hours p {
+      font-size: 18px;
+      color: #555;
+      margin: 10px 0;
+      text-align: center;
+    }
+
+    @media (max-width: 768px) {
+    .feed {
+      flex-direction: column;
+      align-items: center;
+    }
+    }
+
+    .footer {
+       background-color: #222;
+      color: #f1f1f1;
+      padding: 40px 20px 20px;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .footer-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 30px;
+      margin-bottom: 30px;
+    }
+
+    .footer h4 {
+      font-size: 20px;
+      margin-bottom: 15px;
+      color: #ffcc00;
+    }
+
+    .contact-section p,
+    .brands-section p,
+    .sponsors-partners p {
+      margin: 5px 0;
+      font-size: 16px;
+      color: #ddd;
+    }
+
+    .contact-section a {
+      color: #ddd;
+      text-decoration: none;
+    }
+
+    .contact-section a:hover {
+      text-decoration: underline;
+    }
+
+    .links-section ul {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .links-section ul li {
+      margin-bottom: 10px;
+    }
+
+    .links-section ul li a {
+      color: #ccc;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .links-section ul li a:hover {
+      color: #ffcc00;
+    }
+
+    .footer-bottom {
+      border-top: 1px solid #444;
+      padding-top: 20px;
+      text-align: center;
+    }
+
+    .footer-bottom p {
+      margin: 10px 0;
+      color: #aaa;
+      font-size: 14px;
+    }
+
+    .footer-links {
+      margin-top: 10px;
+      font-size: 14px;
+    }
+
+    .footer-links a {
+      color: #aaa;
+      text-decoration: none;
+      margin: 0 5px;
+      transition: color 0.3s;
+    }
+
+    .footer-links a:hover {
+      color: #ffcc00;
+    }
+
+  @media (max-width: 768px) {
+    .footer-container {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+  }
+</style>
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <img src="https://d1csarkz8obe9u.cloudfront.net/posterpreviews/restaurant-logo%2Crestaurant-icon-logo-free-design-template-e4e92c7d3b5631a777fce7a5d629a00a_screen.jpg?ts=1737229867">
+      <h1>My Restaurant</h1>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="{% url 'login' %}">Login</a></li>
+        <li><a href="{% url 'register' %}">Sign Up</a></li>
+        <li><a href="{% url 'about' %}">About us</a></li>
+      </ul>
+    </nav>
+  </header>
+  <section class="hero">
+    <div class="slide" style="background-image: url('{% static 'BG.jpg' %}')"></div>
+    <div class="slide" style="background-image: url('{% static 'caurosel1.jpg' %}')"></div>
+    <div class="slide" style="background-image: url('{% static 'caurosel2.jpg' %}')"></div>
+    <div class="slide" style="background-image: url('{% static 'Dinning.jpg' %}')"></div>
+    <div class="slide" style="background-image: url('{% static 'NightDine.jpg' %}')"></div>
+  
+    <div class="hero-content">
+      <h1>Welcome to My Restaurant</h1>
+      <p>Fresh, delicious, and served with love 24/7</p>
+    </div>
+  </section>
+  <div class="container">
+    <section id="mission">
+      <h2>Our Mission & Vision</h2>
+      <img src="{% static 'OIP (2).jpg' %}">
+      <img src="{% static 'OIP (1).jpg' %}">
+      <img src="{% static 'OIP.jpg' %}">
+      <img src="{% static 'OIP (3).jpg' %}">
+      <p><strong>Mission:</strong> Deliver delicious, fresh, and healthy food while maintaining the highest service quality.</p>
+      <p><strong>Vision:</strong> Become a household name for culinary excellence and warm hospitality.</p>
+  
+      <div class="values-list">
+        <div class="value-item">
+          <h4>Customer First</h4>
+          <p>We prioritize our guests’ satisfaction and work hard to exceed their expectations at every visit.</p>
+        </div>
+        <div class="value-item">
+          <h4>Fresh Ingredients</h4>
+          <p>We use locally sourced, seasonal produce to ensure every meal is both healthy and flavorful.</p>
+        </div>
+        <div class="value-item">
+          <h4>Authentic Recipes</h4>
+          <p>Our menu is inspired by tradition and made with care, offering you a taste of home in every bite.</p>
+        </div>
+        <div class="value-item">
+          <h4>Sustainability</h4>
+          <p>We believe in eco-friendly practices to contribute to a greener planet while serving great food.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="features">
+      <div class="feature-card" data-aos="fade-up">
+        <i class="fas fa-utensils"></i>
+        <h3>Wide Menu</h3>
+        <p>Explore dishes from Indian, Italian, Japanese, and more.</p>
+      </div>
+      <div class="feature-card" data-aos="fade-up">
+        <i class="fas fa-truck"></i>
+        <h3>Fast Delivery</h3>
+        <p>Get hot meals delivered to your doorstep 24/7.</p>
+      </div>
+      <div class="feature-card" data-aos="fade-up">
+        <i class="fas fa-calendar-check"></i>
+        <h3>Easy Reservation</h3>
+        <p>Reserve tables or book catering with ease online.</p>
+      </div>
+    </section>
+    <section id="dishes">
+      <h2>Our Dishes</h2>
+      <ul>
+        <li>🍛 Indian Specials</li>
+        <li>🍝 Italian Pastas & Pizzas</li>
+        <li>🍣 Japanese Sushi</li>
+        <li>🍔 American Burgers</li>
+        <li>🥗 Vegan & Gluten-Free Options</li>
+      </ul>
+    </section>
+
+    <section id="chef" style="margin: 20px;">
+      <h2>Chef's Corner</h2>
+      <p>Meet Chef Saikumar, the mastermind behind our delicious flavors. With 20+ years of experience, he brings fusion, tradition, and love into every dish.</p>
+    </section>
+
+    <section id="gallery" style="margin: 20px;">
+      <h2>Gallery</h2>
+      <div class="gallery-grid">
+        <img src="https://cdn.prod.website-files.com/60414b21f1ffcdbb0d5ad688/6668959ed9b9a9c4140f1b94_AD_4nXdTHVh9hvUSHuSgsFwntcO4pQkz_WrhGYLKppZE6H06A7ufbwge1m_8f3qO8ivaibg2OK-Zuk9tY48qy9i1a3mROOz5iRLs_c6YqcyeliJWry4rR5fx_blNI6dshGqvlfLadCBs5TLKutJkKJpg-wpfBpQD.jpeg" alt="Gallery 1">
+        <img src="https://images.hindustantimes.com/rf/image_size_630x354/HT/p2/2020/04/04/Pictures/_ac5ac2aa-7679-11ea-a349-a18bc5ff339a.jpg" alt="Gallery 2">
+        <img src="{% static 'Horizontal2.jpg' %}" alt="Gallery 4">
+      </div>
+    </section>
+<br>
+    <section class="testimonials">
+      <div class="testimonial-card" data-aos="zoom-in">
+        <p>"Absolutely amazing service and food. A must-visit!"</p>
+        <strong>- Saikumar .S</strong>
+      </div>
+      <div class="testimonial-card" data-aos="zoom-in">
+        <p>"Their vegan options are the best in town. Fast delivery too!"</p>
+        <strong>- Saikumar .S</strong>
+      </div>
+    </section>
+  </div>
+  <div class="feed">
+    <section id="feedback">
+      <h2 style="margin: 20px;">Customer Feedback</h2>
+      <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdZqdXnbToDISiGFYKMAnipCrB8RjmRcyrQJR4sSBPBKUp6tQ/viewform?embedded=true" width="600" height="700" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+    </section>
+    
+    
+    <section id="hours">
+      <img src="{% static 'CoolDine.jpg' %}">
+      <h2>Working Hours</h2>
+      <p>Monday - Friday: 10:00 AM – 11:00 PM</p>
+      <p>Saturday - Sunday: 9:00 AM – 12:00 AM</p>
+    </section>
+  </div>
+  <footer class="footer">
+    <div class="footer-container">
+        <div class="contact-section">
+            <h4>For Bookings Contact</h4>
+            <p>+91 7670964110</p>
+            <p><a href="mailto:sanjeevusaikumar63@gmail.com">sanjeevusaikumar63@gmail.com</a></p>
+            
+        </div>
+        <div class="links-section">
+            <h4>COZY LIFE</h4>
+            <ul>
+                <li><a href="{% url 'login' %}">Login</a></li>
+                <li><a href="{% url 'register' %}">Sign Up</a></li>
+                <li><a href="{% url 'about' %}">About us</a></li>
+            </ul>
+        </div>
+        <div class="brands-section">
+            <h4>Our Brands</h4>
+            <p>COZY | SELEQTIONS | AUSWAY | VIVANTA | GINGER | TREE OF LIFE | RESTRO | QMIN | ZAT SATS</p>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <div class="sponsors-partners">
+            <h4>Our Partners</h4>
+            <p>MARINES | SELEQTIONS | GATEWAY | VIVANTA | GINGER | TREE OF LIFE | RESTRO | QMIN | AMANORA</p>
+        </div>
+        <p>&copy; 2025 The Cozy Hotels Company Limited. All Rights Reserved.</p>
+        <div class="footer-links">
+            <a href="#">Instagram</a> |
+            <a href="#">Facebook</a> |
+            <a href="#">Twitter</a> |
+            <a href="#">Terms of Service</a> |
+            <a href="#">Accessibility</a> |
+            <a href="#">Investor Relations</a> |
+            <a href="#">Partners</a> |
+            <a href="#">Privacy Policy</a> |
+            <a href="#">Cookies Policy</a>
+        </div>
+    </div>
+</footer>
+  <!-- AOS Animation Script -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init();
+    document.querySelector('.menu-toggle').addEventListener('click', () => {
+      document.querySelector('nav ul').classList.toggle('active');
+    });
+  </script>
+</body>
+</html>

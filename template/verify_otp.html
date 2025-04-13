@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Verify OTP</title>
+  <style>
+    /* Overall body styling */
+    body {
+      background: linear-gradient(135deg, #e1ddda, #f4a460);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    /* Container for the OTP verification form */
+    .otp-container {
+      background: #fff;
+      padding: 25px 30px;
+      border-radius: 12px;
+      max-width: 400px;
+      width: 100%;
+      margin: 40px auto;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    /* Heading styling */
+    .otp-container h2 {
+      color: #f76307;
+      font-size: 32px;
+      margin-bottom: 15px;
+    }
+
+    /* Paragraph styling */
+    .otp-container p {
+      color: #555;
+      font-size: 16px;
+      margin-bottom: 25px;
+    }
+
+    /* Form and input styling */
+    .otp-container form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .otp-container form input[type="text"],
+    .otp-container form input[type="number"],
+    .otp-container form input:not([type]) {
+      width: 90%;
+      padding: 12px 14px;
+      margin: 10px 0;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      font-size: 16px;
+      outline: none;
+      transition: background 0.3s;
+    }
+
+    .otp-container form input:focus {
+      background: #f9f9f9;
+    }
+
+    /* Button styling */
+    .otp-container form button {
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(135deg, #ff9966, #ff5e62);
+      border: none;
+      border-radius: 6px;
+      font-size: 18px;
+      font-weight: bold;
+      color: #fff;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      margin-top: 15px;
+    }
+
+    .otp-container form button:hover {
+      background: linear-gradient(135deg, #ff5e62, #ff9966);
+    }
+  </style>
+</head>
+<body>
+  <div class="otp-container">
+    <h2>Verify OTP</h2>
+    <p>We have sent an OTP to your registered email. Enter it below.</p>
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Verify</button>
+    </form>
+  </div>
+</body>
+</html>

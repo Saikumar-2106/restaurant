@@ -1,0 +1,385 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>About Us | The Cozy Table</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom CSS -->
+  <style>
+    .hero-image {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  height: auto;
+  max-height: 90vh;
+ 
+}
+
+/* Hero text overlay */
+.hero-text {
+  position: absolute;
+  top: 30%; /* Adjust text positioning after reducing height */
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: white;
+}
+
+.hero-text h1 {
+  margin-top: 5%;
+  font-size: 2.5rem;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+}
+
+
+.image-container {
+  position: relative; /* Ensures text and pseudo-elements can be positioned over the image */
+  width: 100%; /* Full width of the parent container */
+  overflow: hidden;
+  object-fit: cover;
+  height: 100vh;
+}
+
+
+
+.image-container img {
+  width: 100%; /* Responsive full width */
+  height: 100%; /* Maintain aspect ratio */
+  object-fit: cover; /* Ensure the image covers the container */
+  display: block; /* Remove any inline spacing for images */
+}
+
+.image-container .text-overlay {
+  position: absolute; /* Position text over the image */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* Center the content */
+  color: white; /* Text color for visibility */
+  text-align: center;
+  font-family: Arial, sans-serif;
+  z-index: 2; /* Place above the overlay */
+  background: rgba(0, 0, 0, 0.6); /* Semi-transparent background for text */
+  padding: 20px;
+  margin-top: 40px;
+  border-radius: 10px;
+  transition: all 0.3s ease-in-out; /* Smooth transition for zoom effects */
+}
+
+.text-overlay h1 {
+  font-size: 2.5rem; /* Adjust headline size */
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.text-overlay p {
+  font-size: 1.2rem;
+  line-height: 1.5;
+  font-weight: bold;
+  max-width: 80%; /* Limit paragraph width */
+  margin: 0 auto;
+  transition: transform 0.3s ease-in-out; /* Smooth transition for zoom effect */
+}
+
+/* Zoom effect on hover */
+.text-overlay:hover p {
+  transform: scale(1.1);
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .text-overlay h1 {
+    font-size: 2rem;
+  }
+
+  .text-overlay p {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .text-overlay h1 {
+    font-size: 1.5rem;
+  }
+
+  .text-overlay p {
+    font-size: 0.9rem;
+  }
+}
+
+
+  /* Specific styling for Sanjeev Kapoor's image */
+.chef-image.sanjeev {
+    max-height: 315px; /* Adjust height as needed */
+    object-fit: cover; /* Ensure the image fills the defined height while maintaining aspect ratio */
+    width: auto; /* Ensure width adjusts proportionally */
+  }
+  
+    
+/* Chef card styles */
+.chef-card {
+    position: relative;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    overflow: hidden;
+  }
+  
+  .chef-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+  }
+  
+  .chef-image {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+  }
+  
+  .chef-name {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #333;
+    margin-top: 15px;
+  }
+  
+  /* Chef details hidden initially */
+.chef-details {
+    font-family: 'Arial', sans-serif; /* Change to preferred font family */
+    font-size: 1rem; /* Adjust the font size */
+    font-weight: 500; /* Medium weight for better readability */
+    font-style: italic; /* Adds a stylish italic effect */
+    color: #444; /* Slightly darker text for better contrast */
+    margin-top: 15px;
+    max-height: 0; /* Initially hidden */
+    overflow: hidden; /* Hide content overflow */
+    opacity: 0; /* Invisible initially */
+    transition: max-height 0.5s ease, opacity 0.5s ease; /* Smooth slide and fade-in effect */
+  }
+  
+  /* Show details on hover */
+.chef-card:hover .chef-details {
+    max-height: 100px; /* Adjust based on content height */
+    opacity: 1; /* Fully visible */
+    font-weight: 600; /* Slightly bolder font when visible */
+    font-style: oblique; /* Remove italic effect when hovered */
+    color: #444; /* Slightly darker text for better contrast */
+  }
+  /* Responsiveness */
+  @media (max-width: 768px) {
+    .chef-name {
+      font-size: 1rem;
+    }
+    .chef-details {
+      font-size: 0.9rem;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .chef-name {
+      font-size: 0.9rem;
+    }
+  }
+  
+
+  
+/* Parent Container */
+.parallax-container {
+  display: flex;
+  align-items: stretch; /* Ensure both columns are of equal height */
+  justify-content: center;
+  gap: 30px;
+  padding: 40px;
+  background-color: #f8f9fa; /* Light background for contrast */
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+/* Image & Text Sections - Equal Height */
+.image-section,
+.text-section {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100%; /* Ensure both sections stretch equally */
+}
+
+/* Image Styling */
+.image-section img {
+  max-width: 100%;
+  height: 92%; /* Make the image fill the entire section height */
+  object-fit: cover; /* Ensures the image covers the entire space without distortion */
+  border-radius: 10px;
+  transition: transform 0.3s ease-in-out;
+}
+
+/* Image Hover Effect */
+.image-section:hover img {
+  transform: scale(1.05); /* Slight zoom effect */
+}
+
+/* Text Section */
+.text-section {
+  padding: 20px;
+  position: relative;
+}
+
+/* Text Box */
+.text-box {
+  background: rgba(0, 0, 0, 0.7); /* Semi-transparent black */
+  color: white;
+  padding: 20px;
+  border-radius: 10px;
+  transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out;
+}
+
+/* Hover Effect on Text Section */
+.text-section:hover .text-box {
+  transform: scale(1.05); /* Slight zoom */
+  background: rgba(0, 0, 0, 0.9); /* Darker black for contrast */
+}
+
+/* Text Styling */
+.text-box h2 {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+  transition: color 0.3s ease-in-out;
+}
+
+.text-box p {
+  font-size: 1.2rem;
+  line-height: 1.5;
+}
+
+
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .parallax-container {
+    flex-direction: column; /* Stack image & text vertically */
+    text-align: center;
+  }
+
+  .image-section img {
+    height: auto; /* Ensure image doesn't stretch on small screens */
+  }
+
+  .text-section {
+    text-align: center;
+    padding: 0;
+  }
+
+  .text-box {
+    width: 90%; /* Make text-box wider on small screens */
+  }
+}
+
+
+/* Ensure border is displayed on the map */
+#map {
+  width: 100%;
+  height: 400px;
+   border: 3px solid black !important;  /*Bold black border, enforce with !important  */
+  transition: transform 0.3s ease-in-out;  /*Smooth zoom effect */
+}
+
+/* Apply zoom on hover */
+#map:hover {
+   transform: scale(1.05); /*Zoom effect */
+}
+
+/* Heading styles with zoom effect */
+h2,h1 {
+  font-family: 'Arial', sans-serif;
+  font-weight: bold;
+  color: #4CAF50;
+  transition: transform 0.3s ease-in-out;
+}
+
+
+
+/* Ensure no border override */
+.map-container {
+  border: 15px solid black !important;
+ box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);     /*  Optional shadow  */
+}
+
+.rounded {
+  border-radius: 30px;
+}
+
+/* Reusable hover-zoom class */
+ .hover-zoom:hover {
+  transform: scale(1.05);
+}
+
+  </style>
+</head>
+<body>
+
+  <!-- Hero Image Section -->
+  <div class="hero-image">
+    <div class="row justify-content-center">
+      <div class="image-container">
+        <img src="{% static 'SweetDine.webp' %}" alt="Sweet Dine Restaurant" class="full-width-image" />
+        <div class="hero-text">THE COZY TABLE, MUMBAI</div>
+        <div class="text-overlay">
+          <h1>About Us</h1>
+          <p>We are dedicated to providing the finest experiences, combining exceptional service with passion and creativity.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Our Story Section -->
+  <div class="parallax-container">
+    <div class="image-section">
+      <img src="{% static 'Kitchen.jpg' %}" alt="Restaurant Kitchen" />
+    </div>
+    <div class="text-section">
+      <div class="text-box">
+        <h2>Our Story</h2>
+        <p>Welcome to our culinary journey! Experience the passion and craft behind every dish. Our kitchen is a place where creativity meets tradition, and every meal is prepared with fresh, high-quality ingredients to deliver an unforgettable dining experience.</p>
+        <p>Whether you're here for a casual meal or a special occasion, we take pride in serving food that not only satisfies your hunger but also warms your soul.</p>
+        <p>Join us and be part of our story, where every bite tells a tale of love, dedication, and excellence.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Chef Cards -->
+  <div class="container mt-5">
+    <div class="row justify-content-center">
+      <!-- Chef 1 -->
+      <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+        <div class="chef-card text-center">
+          <img src="{% static 'ChefPankaja.jpg' %}" alt="Chef Pankaja" class="img-fluid chef-image">
+          <h5 class="mt-3 chef-name">Chef Pankaja Bhadouria</h5>
+          <p>Chef Pankaja collaborated with our restaurant in 2021, bringing innovative fusion cuisines to the menu.</p>
+        </div>
+      </div>
+      <!-- Chef 2 -->
+      <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+        <div class="chef-card text-center">
+          <img src="{% static 'SanjeevKapoor.avif' %}" alt="Chef Sanjeev Kapoor" class="img-fluid chef-image">
+          <h5 class="mt-3 chef-name">Chef Sanjeev Kapoor</h5>
+          <p>Chef Sanjeev Kapoor joined us in 2020, inspiring our culinary team with his iconic recipes and expertise.</p>
+        </div>
+      </div>
+      <!-- Chef 3 -->
+      <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+        <div class="chef-card text-center">
+          <img src="{% static 'VikasKhanna.jpg' %}" alt="Chef Vikas Khanna" class="img-fluid chef-image">
+          <h5 class="mt-3 chef-name">Chef Vikas Khanna</h5>
+          <p>Chef Vikas Khanna enriched our dining experience with his artistic approach to gourmet cooking in 2019.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

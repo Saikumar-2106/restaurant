@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Register | Cozy Bites</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: linear-gradient(135deg, #e1ddda, #f4a460);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+      position: relative;
+      z-index: 1;  
+    }
+
+    .container {
+      background: rgba(255, 248, 240, 0.95);
+      border-radius: 20px;
+      padding: 25px 30px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      width: 100%;
+      max-width: 420px;
+      text-align: center;
+      opacity: 1;
+      transition: background 0.5s ease, transform 0.5s ease;
+    }
+
+    h2 {
+      background-color: #fff;
+      margin-bottom: 10px;
+      font-size: 32px;
+      font-weight: bold;
+      color: #f76307;
+    }
+
+    .subtitle {
+      font-size: 15px;
+      margin-bottom: 25px;
+      color: #0b0b0b;
+    }
+
+    input {
+      width: 100%;
+      padding: 14px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 8px;
+      background: rgba(239, 194, 194, 0.85);
+      color: #000;
+      font-size: 16px;
+      outline: none;
+      transition: background 0.3s, transform 0.2s;
+    }
+
+    .password-wrapper {
+      position: relative;
+      width: 100%;
+    }
+
+    .toggle-password {
+      position: absolute;
+      right: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+      font-size: 14px;
+      color: #a1887f;
+      user-select: none;
+    }
+
+    input::placeholder {
+      color: #211f1f;
+    }
+
+    input:focus {
+      background: #fff;
+      transform: scale(1.02);
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      margin-top: 18px;
+      background: linear-gradient(135deg, #ff9966, #ff5e62);
+      border: none;
+      color: white;
+      font-size: 18px;
+      font-weight: bold;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.2s;
+    }
+
+    button:hover {
+      background: linear-gradient(135deg, #ff5e62, #ff9966);
+      transform: scale(1.03);
+    }
+
+    p {
+      margin-top: 20px;
+      font-size: 14px;
+      color: #0e0d0d;
+    }
+
+    a {
+      color: #df2424;
+      font-weight: bold;
+      text-decoration: underline;
+      transition: color 0.2s;
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        padding: 25px 20px;
+      }
+
+      h2 {
+        font-size: 28px;
+      }
+
+      input,
+      button {
+        font-size: 15px;
+      }
+    }
+  </style>
+
+  <script>
+    function togglePassword(id, toggleId) {
+      const passwordInput = document.getElementById(id);
+      const toggleText = document.getElementById(toggleId);
+      if (passwordInput.type === "password") {
+        passwordInput.type = "text";
+        toggleText.textContent = "Hide";
+      } else {
+        passwordInput.type = "password";
+        toggleText.textContent = "Show";
+      }
+    }
+  </script>
+</head>
+<body>
+  <div class="container">
+    <h2>Welcome to Cozy Bites!</h2>
+    <p class="subtitle">Join our food family and enjoy exclusive offers, faster orders, and table bookings.</p>
+
+    {% if messages %}
+      {% for message in messages %}
+        <div class="flash-message">{{ message }}</div>
+      {% endfor %}
+    {% endif %}
+
+    <form method="POST">
+      {% csrf_token %}
+      <input type="text" name="username" placeholder="Full Name" required>
+      <input type="email" name="email" placeholder="Email Address" required>
+      <input type="text" name="phone" placeholder="Phone Number" required>
+
+      <div class="password-wrapper">
+        <input type="password" id="password" name="password" placeholder="Create Password" required>
+        <span class="toggle-password" id="togglePassword" onclick="togglePassword('password', 'togglePassword')">Show</span>
+      </div>
+
+      <div class="password-wrapper">
+        <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm Password" required>
+        <span class="toggle-password" id="toggleConfirmPassword" onclick="togglePassword('confirm_password', 'toggleConfirmPassword')">Show</span>
+      </div>
+
+      <button type="submit">Sign Up</button>
+    </form>
+
+    <p>Already part of our foodie club? <a href="{% url 'login' %}">Login here</a></p>
+  </div>
+</body>
+</html>

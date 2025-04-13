@@ -1,0 +1,93 @@
+
+
+{% block content %}
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f8f9fa;
+        text-align: center;
+    }
+    .container {
+        max-width: 400px;
+        margin: auto;
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    h2 {
+        color: #333;
+    }
+    form {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+    label {
+        font-weight: bold;
+        margin-top: 10px;
+    }
+    input, select {
+        padding: 8px;
+        width: 100%;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+    button {
+        background-color: #28a745;
+        color: white;
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    button:hover {
+        background-color: #218838;
+    }
+    .message {
+        font-size: 14px;
+        margin-bottom: 10px;
+        padding: 8px;
+        border-radius: 5px;
+    }
+    .success {
+        background-color: #d4edda;
+        color: #155724;
+    }
+    .error {
+        background-color: #f8d7da;
+        color: #721c24;
+    }
+    .view-reservations {
+        display: inline-block;
+        margin-top: 10px;
+        text-decoration: none;
+        color: #007bff;
+        font-weight: bold;
+    }
+    .view-reservations:hover {
+        text-decoration: underline;
+    }
+</style>
+
+<div class="container">
+    <h2>Make a Reservation</h2>
+
+    {% if messages %}
+        {% for message in messages %}
+            <p class="message {% if message.tags == 'success' %}success{% else %}error{% endif %}">
+                {{ message }}
+            </p>
+        {% endfor %}
+    {% endif %}
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}  <!-- ✅ Django form renders correctly -->
+
+        <button type="submit">Reserve</button>
+    </form>
+
+    <a href="{% url 'reservation_list' %}" class="view-reservations">View My Reservations</a>
+</div>
+{% endblock %}

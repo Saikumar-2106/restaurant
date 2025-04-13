@@ -1,0 +1,22 @@
+{% block content %}
+<h2>All Table Bookings</h2>
+
+<table border="1">
+    <tr>
+        <th>User</th>
+        <th>Date</th>
+        <th>Time</th>
+        <th>Seats</th>
+    </tr>
+    {% for booking in bookings %}
+    <tr>
+        <td>{{ booking.user.username }}</td>
+        <td>{{ booking.date }}</td>
+        <td>{{ booking.time }}</td>
+        <td>{{ booking.seats }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+<a href="{% url 'home' %}">Back to Home</a>
+{% endblock %}

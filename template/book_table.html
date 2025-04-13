@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book a Table</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+        }
+        h2, h3 {
+            text-align: center;
+            color: #ff6600;
+            margin-bottom: 20px;
+        }
+        form {
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            background: #ffffff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        ul {
+            max-width: 400px;
+            margin: auto;
+            padding: 0;
+            list-style-type: none;
+        }
+        li {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            text-align: center;
+            background: #ffffff;
+            margin: 5px 0;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        a {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #ff6600;
+            font-weight: bold;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+        a:hover {
+            color: #cc5200;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Book a Table</h2>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Book Table</button>
+    </form>
+
+    <h3>Booked Time Slots</h3>
+    <ul>
+        {% for slot in booked_slots %}
+            <li>{{ slot.0 }} at {{ slot.1 }}by {{request.user.username}}</li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'table_list' %}" class="btn-book" target="_self">Table List</a>
+</body>
+</html>
