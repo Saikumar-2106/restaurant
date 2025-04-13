@@ -1,0 +1,4 @@
+Django
+six
+send_mail
+gunicorn
