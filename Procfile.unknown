@@ -1,1 +1,1 @@
-gunicorn restaurant.wsgi --log-file -
+gunicorn rdjango.wsgi --log-file -
