@@ -78,12 +78,18 @@ WSGI_APPLICATION = "restaurant.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+import dj_database_url  # ensure it's in requirements.txt
+
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    }
+    "default": dj_database_url.config(
+        default=os.environ.get("postgresql://cozy_table_db_user:YXWzhOst5HNGxLpWzzHqfOOkzf3QVCdH@dpg-d63eionpm1nc7385si50-a.oregon-postgres.render.com/cozy_table_db")
+    )
 }
+
+# Production settings
+DEBUG = os.environ.get("DEBUG", "False") == "True"
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "").split(",")
+SECRET_KEY = os.environ.get("SECRET_KEY")
 
 
 # Password validation
@@ -153,6 +159,7 @@ EMAIL_USE_TLS = True  # TLS (Transport Layer Security) is required by Gmail
 EMAIL_USE_SSL = False  # Set to False since we are using TLS
 EMAIL_HOST_USER = 'studentportalstudent462@gmail.com'  # Your Gmail address
 EMAIL_HOST_PASSWORD = 'cpff tnmf rkox zefp'  # Your Gmail password or App Password if 2-step verification is enabled
+
 
 
 
