@@ -2,4 +2,5 @@ Django
 six
 send_mail
 gunicorn
-psycopg2-binary
+dj-database-url
+
