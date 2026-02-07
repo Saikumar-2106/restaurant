@@ -1,1 +1,3 @@
 gunicorn rdjango.wsgi --log-file -
+web: gunicorn cozy_table.wsgi
+
