@@ -26,12 +26,7 @@ SECRET_KEY = "django-insecure--3d^f1o5d2l^)0r)s!mmh9)@l1+a55@&f%alnn7^63_+zo&i+3
 DEBUG = True
 
 ALLOWED_HOSTS = ['restaurant-i5pu.onrender.com', 'localhost', '127.0.0.1']
-import os
-from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'restaurant.settings')
-
-application = get_wsgi_application()
 
 
 
@@ -157,5 +152,6 @@ EMAIL_USE_TLS = True  # TLS (Transport Layer Security) is required by Gmail
 EMAIL_USE_SSL = False  # Set to False since we are using TLS
 EMAIL_HOST_USER = 'studentportalstudent462@gmail.com'  # Your Gmail address
 EMAIL_HOST_PASSWORD = 'cpff tnmf rkox zefp'  # Your Gmail password or App Password if 2-step verification is enabled
+
 
 
